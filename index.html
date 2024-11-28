@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="weather__window">
+            <form class="weather__search">
+                <input type="text" class="weather__input" placeholder="Введите город" required>
+                <input type="image" src="https://img.icons8.com/ios-glyphs/25/737373/search--v1.png">
+            </form>
+
+            <div class="weather__info">
+                <div class="weather__current-info">
+
+                    <div class="weather__selected-city">
+                        <span id="currentSelectedLocation"></span>
+                        <input id="saveLocation" type="image" src="https://img.icons8.com/metro/25/737373/like.png">
+                    </div>
+
+                    <div class="weather__temp-icon">
+                        <span id="currentTemp"></span>
+                        <img id="currentWeatherIcon" src="https://openweathermap.org/img/wn/01n@4x.png">
+                    </div>
+
+                    <div class="weather__details">
+                        <span id="feelsLike">Feels like:</span>
+                        <span id="sunrise">Sunrise:</span>
+                        <span id="sunset">Sunset:</span>
+                    </div>
+                </div>
+
+                <div class="weather__timing">
+
+                </div>
+            </div>
+
+            <div class="weather__saved">
+                <span class="captionSavedCity">Added Locations:</span>
+
+                <div class="savedCity">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/additional.js"></script>
+</body>
+</html>
