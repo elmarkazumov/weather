@@ -1,4 +1,4 @@
-import {elements, convertTime, renderCurrentData, renderFavoritesLocations, renderForecast} from "./additional.js";
+import {elements, convertTime, renderCurrentData, renderFavoritesLocations, renderForecast, showInfoWeather} from "./additional.js";
 
 let favoritesLocation = new Set();
 // let favoritesLocation = Array();
@@ -11,7 +11,7 @@ async function getData(requestType, locationName){
 
     try {
         const response = await fetch(url);
-        return response.json();        
+        return response.json();     
     } catch (error) {
         alert(error);
     }
@@ -81,15 +81,17 @@ function selectFavoritesLocation(){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    if(!localStorage.getItem('currentLocation').length){
-        throw new Error('localStorage is empty!');
+    if(!localStorage.getItem('currentLocation')){
+        showInfoWeather(false);
+        return;
     } else{
+        showInfoWeather(true);
         changeCurrentData(localStorage.getItem('currentLocation'));
         forecastDataHandler(localStorage.getItem('currentLocation'));
     }
 
-    if(!localStorage.getItem('favoritesLocation').length){
-        throw new Error('localStorage is empty!');
+    if(!localStorage.getItem('favoritesLocation')){
+        return;
     } else{
         favoritesLocation.clear();
         favoritesLocation = new Set(JSON.parse(localStorage.getItem('favoritesLocation')));
@@ -105,6 +107,7 @@ elements.formInput.addEventListener('submit', function getLocation(event){
     const location = document.querySelector('.weather__input').value;
     changeCurrentData(location);
     forecastDataHandler(location);
+    showInfoWeather(true);
 
     document.querySelector('.weather__input').value = '';
 })

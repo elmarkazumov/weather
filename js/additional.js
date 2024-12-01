@@ -66,4 +66,12 @@ function renderForecast(time, temp, feels, icon){
     elements.forecastBlock.append(div);
 }
 
-export {elements, convertTime, renderCurrentData, renderFavoritesLocations, renderForecast}
+function showInfoWeather(mode){
+    if(!mode){
+        document.querySelector('.weather__window').style.display = 'none';
+    } else {
+        document.querySelector('.weather__window').style.display = 'grid';
+    }
+}
+
+export {elements, convertTime, renderCurrentData, renderFavoritesLocations, renderForecast, showInfoWeather}
