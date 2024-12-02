@@ -5,8 +5,8 @@ let favoritesLocation = new Set();
 
 // Нужны обработчики ошибок
 async function getData(requestType, locationName){
-    const serverUrl = `http://api.openweathermap.org/data/2.5/${requestType}`;
-    const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
+    const serverUrl = `https://api.openweathermap.org/data/2.5/${requestType}`;
+    const apiKey = '3f87c2f41e08fd562f72408b7da9e387';
     const url = `${serverUrl}?q=${locationName}&appid=${apiKey}`;
 
     try {
