@@ -11,9 +11,14 @@ async function getData(requestType, locationName){
 
     try {
         const response = await fetch(url);
-        return response.json();     
+        if(response.status === 200){
+            return response.json();
+        } else {
+            throw new Error(response.statusText);
+        }
     } catch (error) {
-        alert(error);
+        alert(error.message);
+        return false;
     }
 }
 
@@ -37,7 +42,13 @@ async function forecastDataHandler(location){
 // Нужны обработчики ошибок
 async function changeCurrentData(location){
     const data = await getData('weather', location);
+
+    if(data === false) {
+        return;
+    }
     renderCurrentData(data);
+    forecastDataHandler(location);
+    showInfoWeather(true);
 
     localStorage.setItem('currentLocation', location);
     saveLocation();
@@ -67,7 +78,6 @@ function selectFavoritesLocation(){
         location.addEventListener('click', (event) => {
             if(event.target.getAttribute('id') === 'locationName'){
                 changeCurrentData(event.target.textContent);
-                forecastDataHandler(event.target.textContent);    
             } 
 
             if(event.target.getAttribute('id') === 'buttonDeleteSavedLocation'){
@@ -87,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else{
         showInfoWeather(true);
         changeCurrentData(localStorage.getItem('currentLocation'));
-        forecastDataHandler(localStorage.getItem('currentLocation'));
     }
 
     if(!localStorage.getItem('favoritesLocation')){
@@ -102,12 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
 elements.formInput.addEventListener('submit', function getLocation(event){
     event.preventDefault();
 
-// Нужны обработчики ошибок, если поле пустое например или введены символы или цифры
-
     const location = document.querySelector('.weather__input').value;
     changeCurrentData(location);
-    forecastDataHandler(location);
-    showInfoWeather(true);
 
     document.querySelector('.weather__input').value = '';
 })
